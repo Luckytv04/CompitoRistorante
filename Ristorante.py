@@ -12,7 +12,7 @@ class Prenotazione:
         pren = {"id":id, "nome":nome, "num_per":numero_persone, "data":data, "ora":ora}
         prenotazione.append(pren)
         
-        print(f"\n{nome} ha prenotato per {numero_persone} persone il giorno {data} alle ore {ora}\n")
+        print(f"{nome} ha prenotato per {numero_persone} persone il giorno {data} alle ore {ora}")
         
         for pren in prenotazione:
             print(pren, "\n")
@@ -24,16 +24,15 @@ class Prenotazione:
             
             if pren["data"] == data:
                 print(f"\n{pren['nome']} ha prenotato per {pren['num_per']} persone il giorno {pren['data']} alle ore {pren['ora']}\n")
-        else:
-            print("\nNessuna prenotazione trovata\n")
-            
+                
+                
     def modifica_orario(prenotazione, id_pren, ora):
         
         for pren in prenotazione:
             
             if id_pren == pren["id"]:
                 pren["ora"] = ora
-                print(f"La prenotazione di {pren['nome']} nell'indice {pren['id']}, è stata modificata alle ore {ora}")
+                print(f"\nLa prenotazione di {pren['nome']} nell'indice {pren['id']}, è stata modificata alle ore {ora}\n")
                 
                 for pren in prenotazione:
                     print(pren, "\n")
@@ -41,29 +40,55 @@ class Prenotazione:
             else:
                 print("ID non valido")
                 return prenotazione
-    
-a = Prenotazione.prenotazione
-b = Prenotazione.aggiungi_prenotazione
-c = Prenotazione.visualizza_prenotazioni
-d = Prenotazione.modifica_orario
-
-scelta = 0
-
-while(scelta != 5):
-    
-    scelta = int(input("1. Aggiungi prenotazione\n2. Visualizza prenotazioni\n3. Modifica ora prenotazione\n4. Elimina prenotazione \n5. Esci \n \n"))
-
-    match scelta:
         
-        case 1:
-            b(a, id, input("Nome: "), input("Numero di persone: "), input("Data: "), input("Ora: "))
-            
-        case 2:
-            c(a, input("Immettere la data di prenotazione: "))
-            
-        case 3:
-            d(a, int(input("ID prenotazione: ")), input("Nuovo orario: "))
+    def elimina_pren(prenotazione, id):
         
-        case _:
-            print("Scelta non valida")
-            break
+        for pren in prenotazione:
+            
+            if pren["id"] == id:
+                
+                prenotazione.remove(pren)
+                print(f"\nLa prenotazione con indice {id} è stata eliminata\n")
+                
+                for pren in prenotazione:
+                    print(pren, "\n")
+                return prenotazione
+            
+            else:
+                print("ID non valido")
+                return prenotazione
+            
+class GestionePren:
+                
+    a = Prenotazione.prenotazione
+    b = Prenotazione.aggiungi_prenotazione
+    c = Prenotazione.visualizza_prenotazioni
+    d = Prenotazione.modifica_orario
+    e = Prenotazione.elimina_pren
+
+    scelta = 0
+
+    while(scelta != 5):
+    
+        scelta = int(input("1. Aggiungi prenotazione\n2. Visualizza prenotazioni\n3. Modifica ora prenotazione\n4. Elimina prenotazione \n5. Esci \n \n"))
+
+        match scelta:
+        
+            case 1:
+                b(a, id, input("Nome: "), input("Numero di persone: "), input("Data: "), input("Ora: "))
+        
+            case 2:
+                c(a, input("Immettere la data di prenotazione: "))
+            
+            case 3:
+                d(a, int(input("ID prenotazione: ")), input("Nuovo orario: "))
+            
+            case 4:
+                e(a, int(input("ID prenotazione da eliminare: ")))
+            
+            case 5:
+                break
+        
+            case _:
+                print("Scelta non valida")
+                break
