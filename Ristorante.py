@@ -12,14 +12,24 @@ class Prenotazione:
         pren = {"id":id, "nome":nome, "num_per":numero_persone, "data":data, "ora":ora}
         prenotazione.append(pren)
         
-        print(f"{nome} ha prenotato per {numero_persone} persone il giorno {data} alle ore {ora}")
+        print(f"\n{nome} ha prenotato per {numero_persone} persone il giorno {data} alle ore {ora}\n")
         
         for pren in prenotazione:
             print(pren, "\n")
         return prenotazione
     
+    def visualizza_prenotazioni(prenotazione, data):
+        
+        for pren in prenotazione:
+            
+            if pren["data"] == data:
+                print(f"\n{pren['nome']} ha prenotato per {pren['num_per']} persone il giorno {pren['data']} alle ore {pren['ora']}\n")
+        else:
+            print("\nNessuna prenotazione trovata\n")
+    
 a = Prenotazione.prenotazione
 b = Prenotazione.aggiungi_prenotazione
+c = Prenotazione.visualizza_prenotazioni
 
 scelta = 0
 
@@ -32,6 +42,8 @@ while(scelta != 5):
         case 1:
             b(a, id, input("Nome: "), input("Numero di persone: "), input("Data: "), input("Ora: "))
             
+        case 2:
+            c(a, input("Immettere la data di prenotazione: "))
         
         case _:
             print("Scelta non valida")
